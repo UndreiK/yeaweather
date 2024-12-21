@@ -4,7 +4,7 @@ interface CityInputProps {
   onSubmit: (city: string) => void
 }
 
-const CityInput: React.FC<CityInputProps> = ({ onSubmit }) => {
+const CityInput: React.FC<CityInputProps> = ({ onSubmit }: CityInputProps) => {
   const [city, setCity] = useState<string>('')
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
