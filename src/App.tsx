@@ -1,5 +1,5 @@
 import './App.css'
-import CityCard from './components/CityCard'
+import CityCard from './components/CityCard/CityCard'
 import { useAppSelector } from './store'
 import { useGetWeatherByCityQuery } from './store/services/weatherApi'
 
