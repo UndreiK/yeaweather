@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import styles from './styles.module.css'
+import { useDispatch } from 'react-redux'
+import { addToHistory } from '../../store/slices/weatherSlice'
 
 interface CityInputProps {
   onSubmit: (city: string) => void
@@ -7,11 +9,15 @@ interface CityInputProps {
 
 const CityInput: React.FC<CityInputProps> = ({ onSubmit }: CityInputProps) => {
   const [city, setCity] = useState<string>('')
+  const dispatch = useDispatch()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     onSubmit(city)
     setCity('')
+    if (city) {
+      dispatch(addToHistory(city))
+    }
   }
 
   return (
