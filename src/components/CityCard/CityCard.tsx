@@ -14,8 +14,8 @@ const CityCard: React.FC<{
 }> = ({ data, isLoading, error }) => {
   const dispatch = useDispatch()
 
-  console.log(data)
-  console.log('error', error)
+  // console.log(data)
+  // console.log('error', error)
 
   const handleSubmit = (cityName: string) => {
     dispatch(setWeather(cityName))
