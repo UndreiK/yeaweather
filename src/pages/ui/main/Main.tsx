@@ -4,11 +4,11 @@ import SearchCityForm from '../../../features/ui/SearchCityForm/SearchCityForm'
 
 const Main = () => {
   return (
-    <>
+    <section>
       <SearchCityForm />
       <WeatherCard />
       <CityList />
-    </>
+    </section>
   )
 }
 

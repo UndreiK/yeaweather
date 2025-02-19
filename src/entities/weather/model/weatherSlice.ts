@@ -3,8 +3,8 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface IHistory {
   city: string
-  temp: number | undefined
-  date: string | undefined
+  temp?: number | undefined
+  date?: string | undefined
 }
 
 interface IWeatherState {
@@ -29,6 +29,11 @@ export const weatherSlice = createSlice({
     },
     setHistory: (state, action: PayloadAction<IHistory>) => {
       if (!state.history.find((item) => item.city === action.payload.city)) {
+        state.history.unshift(action.payload)
+      } else {
+        state.history = state.history.filter(
+          (item) => item.city !== action.payload.city
+        )
         state.history.unshift(action.payload)
       }
     },

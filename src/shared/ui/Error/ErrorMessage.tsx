@@ -1,22 +1,29 @@
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import styles from './styles.module.css'
+import { SerializedError } from '@reduxjs/toolkit'
 
-const ErrorMessage = ({ error }: any) => {
+type Props = {
+  error: FetchBaseQueryError | SerializedError
+}
+
+const ErrorMessage = ({ error }: Props) => {
   let errorMessage
   if (error) {
-    if (error.status) {
+    if ('status' in error) {
       errorMessage = `Ошибка ${error.status}: ${
-        error.data?.message || 'Что-то пошло не так'
+        'data' in error &&
+        error.data &&
+        typeof error.data === 'object' &&
+        'message' in error.data
+          ? error.data.message
+          : 'Что-то пошло не так'
       }`
     } else {
-      errorMessage = error.error || 'Неизвестная ошибка'
+      errorMessage = error.message || 'Неизвестная ошибка'
     }
   }
 
-  return (
-    <>
-      <p className={styles.error}>{errorMessage}</p>
-    </>
-  )
+  return <p className={styles.error}>{errorMessage}</p>
 }
 
 export default ErrorMessage

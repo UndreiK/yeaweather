@@ -25,3 +25,11 @@ ul {
 li {
   list-style: none;
 }
+
+.item {
+  cursor: pointer;
+}
+
+.item:hover {
+  color: blue;
+}

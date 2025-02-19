@@ -9,15 +9,13 @@ interface IInputProps {
 
 const Input = ({ type, value, onChange, placeholder }: IInputProps) => {
   return (
-    <>
-      <input
-        className={styles.input}
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-      />
-    </>
+    <input
+      className={styles.input}
+      type={type}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+    />
   )
 }
 

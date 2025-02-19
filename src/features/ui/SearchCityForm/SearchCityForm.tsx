@@ -1,9 +1,6 @@
-import React, { useState } from 'react'
-import { useAppDispatch } from '../../../app/api/hooks.ts'
-import {
-  getCity,
-  setHistory,
-} from '../../../entities/weather/model/weatherSlice.ts'
+import React, { useEffect, useState } from 'react'
+import { useAppDispatch } from '../../../app/store/hooks.ts'
+import { setHistory } from '../../../entities/weather/model/weatherSlice.ts'
 import Input from '../../../shared/ui/Input/Input.tsx'
 import Button from '../../../shared/ui/Button/Button.tsx'
 
@@ -12,23 +9,29 @@ import { useGetWeatherByCityQuery } from '../../../entities/weather/api/weatherA
 
 const SearchCityForm = () => {
   const [city, setCity] = useState<string>('')
-  const { data } = useGetWeatherByCityQuery(city, {
-    skip: !city,
+  const [searchCity, setSearchCity] = useState<string>('')
+  const { data } = useGetWeatherByCityQuery(searchCity, {
+    skip: !searchCity,
   })
   const dispatch = useAppDispatch()
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    dispatch(getCity(city))
+  useEffect(() => {
     if (data) {
+      // dispatch(getCity(data.name))
       dispatch(
         setHistory({
-          city: data?.name,
-          temp: data?.main.temp,
+          city: data.name,
+          temp: data.main.temp,
           date: new Date().toLocaleString(),
         })
       )
     }
+  }, [data])
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!city.trim()) return
+    setSearchCity(city)
     setCity('')
   }
 
